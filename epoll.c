@@ -41,6 +41,14 @@ int main(){
         EPOLL_CTL_MOD：修改已经添加的文件描述符 fd 的事件 event。
         EPOLL_CTL_DEL：从 epoll 实例中删除文件描述符 fd。
         event 参数指定关注的事件类型，例如 EPOLLIN（可读事件）、EPOLLOUT（可写事件）等。
+
+        EPOLLIN：表示对应的文件描述符可以读（包括对端套接字正常关闭）。
+        EPOLLOUT：表示对应的文件描述符可以写。
+        EPOLLPRI：表示对应的文件描述符有紧急数据可读（这里表示带外数据）。
+        EPOLLERR：表示对应的文件描述符发生错误。
+        EPOLLHUP：表示对应的文件描述符被挂断。
+        EPOLLET：设置边缘触发模式（Edge Triggered），相对于默认的水平触发（Level Triggered）。
+        EPOLLONESHOT：设置一次性触发。即事件只会通知一次，必须通过 epoll_ctl 重新设置。
     */
     if(epoll_ctl(epfd,EPOLL_CTL_ADD,STDIN_FILENO,&ev) == -1){
         perror("epoll_ctl: stdin");
